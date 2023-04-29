@@ -1,16 +1,20 @@
 resource "aws_vpc" "vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = var.cidr_block
+  enable_dns_hostnames = true
 
   tags = {
     "Name" = "vpc-tf"
   }
 }
 
-resource "aws_subnet" "subnet" {
-  vpc_id     = aws_vpc.vpc.id
-  cidr_block = "10.0.1.0/24"
+resource "aws_subnet" "private_subnet" {
+  count             = 2
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = cidrsubnet(var.cidr_block, 2, count.index)
+  availability_zone = element(var.availability_zones, count.index)
+
   tags = {
-    "Name" = "subnet-tf"
+    "Name" = "private-subnet-tf ${count.index + 1}"
   }
 }
 
@@ -31,30 +35,24 @@ resource "aws_route_table" "route_table" {
   }
 
   tags = {
-    Name = "route-table-tf"
+    Name = "Public subnet route-table-tf"
   }
 }
 
-resource "aws_route_table_association" "rta" {
-  subnet_id      = aws_subnet.subnet.id
+resource "aws_subnet" "public_subnet" {
+  count                   = 2
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = cidrsubnet(var.cidr_block, 2, count.index + 2)
+  availability_zone       = element(var.availability_zones, count.index)
+  map_public_ip_on_launch = true
+
+  tags = {
+    "Name" = "public-subnet-tf ${count.index + 1}"
+  }
+}
+
+resource "aws_route_table_association" "rt_association" {
+  count          = 2
+  subnet_id      = aws_subnet.public_subnet.*.id[count.index]
   route_table_id = aws_route_table.route_table.id
-}
-
-resource "aws_security_group" "security_group" {
-  name   = "security-group-tf"
-  vpc_id = aws_vpc.vpc.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }

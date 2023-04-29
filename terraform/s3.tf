@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "codepipeline_artifacts" {
-  bucket = "tf-artifacts-br"
+  bucket        = var.artifacts_bucket_name
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_ownership_controls" "codepipeline_artifacts_ctrl" {
