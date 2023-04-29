@@ -18,7 +18,10 @@ resource "aws_codepipeline" "python_app_pipeline" {
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
       version          = "1"
-      output_artifacts = ["tf-code"]
+      input_artifacts = []
+      output_artifacts = [
+        "SourceArtifact",
+      ]
       configuration = {
         FullRepositoryId     = "brvendrametto/terraform_aws_pipeline/create_pipeline/python_app"
         BranchName           = "main"

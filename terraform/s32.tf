@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "cicd_bucket" {
-  bucket        = "cicd_bucket"
+  bucket        = "tf-cicd-bucket-br"
   force_destroy = true
 }
 
