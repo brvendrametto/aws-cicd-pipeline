@@ -11,7 +11,7 @@ variable "codestar_connector_credentials2" {
 }
 
 variable "ACCOUNT_ID" {
-
+  type = string
 }
 
 variable "aws_region" {
