@@ -23,7 +23,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
         "SourceArtifact",
       ]
       configuration = {
-        FullRepositoryId     = "brvendrametto/pythonapp"
+        FullRepositoryId     = "brvendrametto/pythonapp" //TODO: Verificar se dá para juntar no mesmo repo.
         BranchName           = "main"
         ConnectionArn        = var.codestar_connector_credentials2
         OutputArtifactFormat = "CODE_ZIP"
