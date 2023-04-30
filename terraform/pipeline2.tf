@@ -23,7 +23,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
         "SourceArtifact",
       ]
       configuration = {
-        FullRepositoryId     = "brvendrametto/aws-cicd-pipeline/python_app"
+        FullRepositoryId     = "brvendrametto/aws-cicd-pipeline/tree/main/python_app"
         BranchName           = "main"
         ConnectionArn        = var.codestar_connector_credentials
         OutputArtifactFormat = "CODE_ZIP"
