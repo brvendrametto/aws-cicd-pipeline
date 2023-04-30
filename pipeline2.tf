@@ -51,7 +51,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
             {
               name  = "AWS_ACCOUNT_ID"
               type  = "PARAMETER_STORE"
-              value = "ACCOUNT_ID"
+              value = var.ACCOUNT_ID
             },
             {
               name  = "IMAGE_REPO_NAME"
