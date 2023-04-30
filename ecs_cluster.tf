@@ -1,6 +1,7 @@
 resource "aws_ecr_repository" "python_app_repo" {
   name                 = "tf-python-app-repo"
   image_tag_mutability = "MUTABLE"
+  force_delete = true
 
   image_scanning_configuration {
     scan_on_push = true

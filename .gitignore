@@ -1,3 +1,9 @@
 *.terraform*
-stateBucket/*terraform*
-stateBucket/terraform.tfstate
+
+*.tfstate
+*.tfstate.*
+
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json

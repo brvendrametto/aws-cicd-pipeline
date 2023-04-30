@@ -36,7 +36,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
     action {
       category = "Build"
       configuration = {
-        "EnvironmentVariables" = jsonencode(
+        "EnvironmentVariables" = jsonencode(//TODO: Remover testes do app
           [
             {
               name  = "environment"
