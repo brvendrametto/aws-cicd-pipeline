@@ -23,9 +23,9 @@ resource "aws_codepipeline" "python_app_pipeline" {
         "SourceArtifact",
       ]
       configuration = {
-        FullRepositoryId     = "brvendrametto/aws-cicd-pipeline/tree/main/python_app"
+        FullRepositoryId     = "brvendrametto/terraform_aws_pipeline"
         BranchName           = "main"
-        ConnectionArn        = var.codestar_connector_credentials
+        ConnectionArn        = var.codestar_connector_credentials2
         OutputArtifactFormat = "CODE_ZIP"
       }
     }

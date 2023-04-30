@@ -6,6 +6,10 @@ variable "codestar_connector_credentials" {
   type = string
 }
 
+variable "codestar_connector_credentials2" {
+  type = string
+}
+
 variable "ACCOUNT_ID" {
   type = string
 }
