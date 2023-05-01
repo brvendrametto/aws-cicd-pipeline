@@ -10,7 +10,7 @@ resource "aws_s3_bucket_ownership_controls" "codepipeline_artifacts_ctrl1" {
   }
 }
 
-resource "aws_s3_bucket_acl" "codepipeline_artifacts_acl" {
+resource "aws_s3_bucket_acl" "codepipeline_artifacts_acl1" {
   depends_on = [aws_s3_bucket_ownership_controls.codepipeline_artifacts_ctrl1]
 
   bucket = aws_s3_bucket.codepipeline_artifacts1.id
