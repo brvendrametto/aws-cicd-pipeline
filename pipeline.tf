@@ -102,7 +102,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
       provider = "CodeBuild"
       version  = "1"
       owner    = "AWS"
-      region   = var.aws_region //TODO:Verificar region Deploy
+      //region   = var.aws_region //TODO:Verificar region Deploy
       //Essa integração está disponível nas regiões do Leste dos EUA (Ohio), Leste dos EUA (Virgínia), Oeste dos EUA (Oregon), Oeste dos EUA (Norte da Califórnia), Canadá (Central), UE (Londres), UE (Irlanda), UE (Frankfurt), Ásia-Pacífico (Sydney), Ásia-Pacífico (Cingapura), Ásia-Pacífico (Tóquio) e Ásia-Pacífico (Seul).
       input_artifacts = ["tf-code"]
       configuration = {

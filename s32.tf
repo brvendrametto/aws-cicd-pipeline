@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "codepipeline_artifacts1" {
-  bucket        = "s3-brvendra1"
+  bucket        = "s3-brvendra12"
   force_destroy = true
 }
 
