@@ -49,11 +49,6 @@ resource "aws_codepipeline" "python_app_pipeline" {
               value = var.aws_region
             },
             {
-              name  = "AWS_ACCOUNT_ID"
-              type  = "PARAMETER_STORE"
-              value = var.ACCOUNT_ID
-            },
-            {
               name  = "IMAGE_REPO_NAME"
               type  = "PLAINTEXT"
               value = aws_ecr_repository.python_app_repo.name
