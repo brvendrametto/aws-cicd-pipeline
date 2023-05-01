@@ -36,7 +36,7 @@ variable "python_project_repository_branch" {
 
 variable "artifacts_bucket_name" {
   description = "S3 Bucket for storing artifacts"
-  default     = "tf-artifacts-br"
+  default     = "tf-artifacts-br123"
 }
 
 variable "container_port" {
