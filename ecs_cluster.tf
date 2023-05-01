@@ -37,7 +37,7 @@ resource "aws_ecs_task_definition" "python_task" {
       name      = "python-app2"
       image     = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${aws_ecr_repository.python_app_repo.name}:latest"
       cpu       = 10
-      memory    = 256
+      memory    = 512
       essential = true
       portMappings = [
         {
