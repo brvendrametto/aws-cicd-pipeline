@@ -106,7 +106,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
       //Essa integração está disponível nas regiões do Leste dos EUA (Ohio), Leste dos EUA (Virgínia), Oeste dos EUA (Oregon), Oeste dos EUA (Norte da Califórnia), Canadá (Central), UE (Londres), UE (Irlanda), UE (Frankfurt), Ásia-Pacífico (Sydney), Ásia-Pacífico (Cingapura), Ásia-Pacífico (Tóquio) e Ásia-Pacífico (Seul).
       input_artifacts = ["tf-code"]
       configuration = {
-        ProjectName = "tf-cicd-plan"
+        ProjectName = "tf-cicd-apply"
       }
     }
   }
