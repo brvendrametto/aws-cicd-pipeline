@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "python_task" {
       name      = var.container_name
       image     = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${aws_ecr_repository.python_app_repo.name}:latest"
       cpu       = 10
-      memory    = 256
+      memory    = 512
       essential = true
       portMappings = [
         {
@@ -50,7 +50,7 @@ resource "aws_ecs_service" "python_service" {
   name            = "python-service"
   cluster         = aws_ecs_cluster.python_app_cluster.id
   task_definition = aws_ecs_task_definition.python_task.arn
-  desired_count   = 2
+  desired_count   = 1
   iam_role        = aws_iam_role.ecs_service_role.arn
   depends_on      = [aws_iam_role_policy.ecs_policy, aws_ecs_task_definition.python_task]
 
@@ -86,7 +86,7 @@ resource "aws_autoscaling_group" "ecs_autoscaling_group" {
 
   desired_capacity          = 1
   min_size                  = 1
-  max_size                  = 2
+  max_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2"
 }
