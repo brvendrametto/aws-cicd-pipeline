@@ -19,23 +19,23 @@ resource "aws_ecs_cluster" "python_app_cluster" {
 
 resource "aws_ecs_task_definition" "python_task" {
   family = "service"
-  container_definitions = jsonencode([
+    container_definitions = jsonencode([
     {
-      name      = "first"
-      image     = "service-first"
+      name      = var.container_name
+      image     = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${aws_ecr_repository.python_app_repo.name}:latest"
       cpu       = 10
       memory    = 512
       essential = true
       portMappings = [
         {
-          containerPort = 80
+          containerPort = var.container_port
           hostPort      = 80
         }
       ]
     },
     {
-      name      = "second"
-      image     = "service-second"
+      name      = "python-app2"
+      image     = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${aws_ecr_repository.python_app_repo.name}:latest"
       cpu       = 10
       memory    = 256
       essential = true
