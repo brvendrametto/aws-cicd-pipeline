@@ -21,15 +21,28 @@ resource "aws_ecs_task_definition" "python_task" {
   family = "service"
   container_definitions = jsonencode([
     {
-      name      = var.container_name
-      image     = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${aws_ecr_repository.python_app_repo.name}:latest"
+      name      = "first"
+      image     = "service-first"
       cpu       = 10
       memory    = 512
       essential = true
       portMappings = [
         {
-          containerPort = var.container_port
+          containerPort = 80
           hostPort      = 80
+        }
+      ]
+    },
+    {
+      name      = "second"
+      image     = "service-second"
+      cpu       = 10
+      memory    = 256
+      essential = true
+      portMappings = [
+        {
+          containerPort = 443
+          hostPort      = 443
         }
       ]
     }
