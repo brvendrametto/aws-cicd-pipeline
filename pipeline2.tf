@@ -13,11 +13,11 @@ resource "aws_codepipeline" "python_app_pipeline" {
   stage {
     name = "Source"
     action {
-      name             = "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      name            = "Source"
+      category        = "Source"
+      owner           = "AWS"
+      provider        = "CodeStarSourceConnection"
+      version         = "1"
       input_artifacts = []
       output_artifacts = [
         "SourceArtifact",
@@ -25,18 +25,18 @@ resource "aws_codepipeline" "python_app_pipeline" {
       configuration = {
         FullRepositoryId     = "brvendrametto/pythonapp" //TODO: Verificar se dá para juntar no mesmo repo.
         BranchName           = "main"
-        ConnectionArn        = var.codestar_connector_credentials2
+        ConnectionArn        = var.codestar_connector_credentials
         OutputArtifactFormat = "CODE_ZIP"
       }
     }
   }
-    stage {
+  stage {
     name = "Build"
 
     action {
       category = "Build"
       configuration = {
-        "EnvironmentVariables" = jsonencode(//TODO: Remover testes do app
+        "EnvironmentVariables" = jsonencode( //TODO: Remover testes do app
           [
             {
               name  = "environment"

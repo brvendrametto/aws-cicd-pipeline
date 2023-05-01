@@ -1,7 +1,7 @@
 resource "aws_ecr_repository" "python_app_repo" {
   name                 = "tf-python-app-repo"
   image_tag_mutability = "MUTABLE"
-  force_delete = true
+  force_delete         = true
 
   image_scanning_configuration {
     scan_on_push = true
@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "python_task" {
   ])
 
   volume {
-    name              = "service-storage"
+    name      = "service-storage"
     host_path = "/ecs/service-storage"
   }
 
