@@ -85,11 +85,11 @@ resource "aws_ecs_service" "python_service" {
 }
 
 resource "aws_launch_configuration" "ecs_launch_config" {
-  image_id             = "ami-072aaf1b030a33b6e"
+  image_id             = "ami-009c5f630e96948cb"
   iam_instance_profile = aws_iam_instance_profile.ecs_agent.name
   security_groups      = [aws_security_group.allow_http.id]
   user_data            = "#!/bin/bash\necho ECS_CLUSTER=${aws_ecs_cluster.python_app_cluster.name} >> /etc/ecs/ecs.config"
-  instance_type        = "t2.micro"
+  instance_type        = "t3.micro"
 }
 
 resource "aws_autoscaling_group" "ecs_autoscaling_group" {
