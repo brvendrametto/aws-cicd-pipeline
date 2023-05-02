@@ -97,13 +97,11 @@ resource "aws_codepipeline" "cicd_pipeline" {
   stage {
     name = "Deploy"
     action {
-      name     = "Deploy"
-      category = "Build"
-      provider = "CodeBuild"
-      version  = "1"
-      owner    = "AWS"
-      //region   = var.aws_region //TODO:Verificar region Deploy
-      //Essa integração está disponível nas regiões do Leste dos EUA (Ohio), Leste dos EUA (Virgínia), Oeste dos EUA (Oregon), Oeste dos EUA (Norte da Califórnia), Canadá (Central), UE (Londres), UE (Irlanda), UE (Frankfurt), Ásia-Pacífico (Sydney), Ásia-Pacífico (Cingapura), Ásia-Pacífico (Tóquio) e Ásia-Pacífico (Seul).
+      name            = "Deploy"
+      category        = "Build"
+      provider        = "CodeBuild"
+      version         = "1"
+      owner           = "AWS"
       input_artifacts = ["tf-code"]
       configuration = {
         ProjectName = "tf-cicd-plan"

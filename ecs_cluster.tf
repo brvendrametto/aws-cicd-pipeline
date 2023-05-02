@@ -17,9 +17,9 @@ resource "aws_ecs_cluster" "python_app_cluster" {
   }
 }
 
-resource "aws_ecs_task_definition" "python_task2" {
+resource "aws_ecs_task_definition" "python_task" {
   family = "service"
-    container_definitions = jsonencode([
+  container_definitions = jsonencode([
     {
       name      = var.container_name
       image     = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${aws_ecr_repository.python_app_repo.name}:latest"
@@ -46,13 +46,13 @@ resource "aws_ecs_task_definition" "python_task2" {
   }
 }
 
-resource "aws_ecs_service" "python_service2" {
+resource "aws_ecs_service" "python_service" {
   name            = "python-service"
   cluster         = aws_ecs_cluster.python_app_cluster.id
-  task_definition = aws_ecs_task_definition.python_task2.arn
+  task_definition = aws_ecs_task_definition.python_task.arn
   desired_count   = 1
   iam_role        = aws_iam_role.ecs_service_role.arn
-  depends_on      = [aws_iam_role_policy.ecs_policy, aws_ecs_task_definition.python_task2]
+  depends_on      = [aws_iam_role_policy.ecs_policy, aws_ecs_task_definition.python_task]
 
   ordered_placement_strategy {
     type  = "binpack"
@@ -72,11 +72,11 @@ resource "aws_ecs_service" "python_service2" {
 }
 
 resource "aws_launch_configuration" "ecs_launch_config" {
-  image_id             = "ami-009c5f630e96948cb"
+  image_id             = "ami-072aaf1b030a33b6e"
   iam_instance_profile = aws_iam_instance_profile.ecs_agent.name
   security_groups      = [aws_security_group.allow_http.id]
   user_data            = "#!/bin/bash\necho ECS_CLUSTER=${aws_ecs_cluster.python_app_cluster.name} >> /etc/ecs/ecs.config"
-  instance_type        = "t3.micro"
+  instance_type        = "t2.micro"
 }
 
 resource "aws_autoscaling_group" "ecs_autoscaling_group" {

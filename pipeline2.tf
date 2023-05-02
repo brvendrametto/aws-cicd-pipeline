@@ -23,7 +23,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
         "SourceArtifact",
       ]
       configuration = {
-        FullRepositoryId     = "brvendrametto/pythonapp" //TODO: Verificar se dá para juntar no mesmo repo.
+        FullRepositoryId     = "brvendrametto/pythonapp" //TODO: Juntar no mesmo repo.
         BranchName           = "main"
         ConnectionArn        = var.codestar_connector_credentials
         OutputArtifactFormat = "CODE_ZIP"
@@ -36,7 +36,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
     action {
       category = "Build"
       configuration = {
-        "EnvironmentVariables" = jsonencode( //TODO: Remover testes do app
+        "EnvironmentVariables" = jsonencode(
           [
             {
               name  = "environment"
@@ -87,7 +87,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
       category = "Deploy"
       configuration = {
         "ClusterName" = aws_ecs_cluster.python_app_cluster.name
-        "ServiceName" = aws_ecs_service.python_service2.name
+        "ServiceName" = aws_ecs_service.python_service.name
         "FileName"    = "imagedefinitions.json"
         #"DeploymentTimeout" = "15"
       }
@@ -106,7 +106,7 @@ resource "aws_codepipeline" "python_app_pipeline" {
   depends_on = [
     aws_codebuild_project.containerAppBuild,
     aws_ecs_cluster.python_app_cluster,
-    aws_ecs_service.python_service2,
+    aws_ecs_service.python_service,
     aws_ecr_repository.python_app_repo,
     aws_s3_bucket.codepipeline_artifacts,
   ]
