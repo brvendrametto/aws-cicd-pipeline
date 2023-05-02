@@ -17,7 +17,7 @@ resource "aws_ecs_cluster" "python_app_cluster" {
   }
 }
 
-resource "aws_ecs_task_definition" "python_task" {
+resource "aws_ecs_task_definition" "python_task2" {
   family = "service"
     container_definitions = jsonencode([
     {
@@ -30,19 +30,6 @@ resource "aws_ecs_task_definition" "python_task" {
         {
           containerPort = var.container_port
           hostPort      = 80
-        }
-      ]
-    },
-    {
-      name      = "python-app2"
-      image     = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${aws_ecr_repository.python_app_repo.name}:latest"
-      cpu       = 10
-      memory    = 512
-      essential = true
-      portMappings = [
-        {
-          containerPort = 443
-          hostPort      = 443
         }
       ]
     }
@@ -59,13 +46,13 @@ resource "aws_ecs_task_definition" "python_task" {
   }
 }
 
-resource "aws_ecs_service" "python_service" {
+resource "aws_ecs_service" "python_service2" {
   name            = "python-service"
   cluster         = aws_ecs_cluster.python_app_cluster.id
-  task_definition = aws_ecs_task_definition.python_task.arn
+  task_definition = aws_ecs_task_definition.python_task2.arn
   desired_count   = 1
   iam_role        = aws_iam_role.ecs_service_role.arn
-  depends_on      = [aws_iam_role_policy.ecs_policy, aws_ecs_task_definition.python_task]
+  depends_on      = [aws_iam_role_policy.ecs_policy, aws_ecs_task_definition.python_task2]
 
   ordered_placement_strategy {
     type  = "binpack"
